@@ -1,0 +1,8 @@
+football-players-detection-1/
+
+yolov8n.pt
+__pycache__/
+input_videos/
+output_videos/
+runs/
+models/
