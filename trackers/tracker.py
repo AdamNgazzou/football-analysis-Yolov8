@@ -14,7 +14,7 @@ class Tracker :
         self.tracker = sv.ByteTrack()
 
     def detect_frames(self, frames) :
-        BATCH_SIZE = 16
+        BATCH_SIZE = 20
         detections = []
         for i in range(0, len(frames), BATCH_SIZE) :
             batch_frames = frames[i:i+BATCH_SIZE]
@@ -151,7 +151,8 @@ class Tracker :
 
             # Draw players
             for track_id, player in player_dict.items() :
-                frame = self.draw_ellipse(frame, player["bbox"], (0,0,255), track_id)
+                color = player.get('team_color', (0,0,255))
+                frame = self.draw_ellipse(frame, player["bbox"], color, track_id)
     
             # Draw referees
             for _, referee in referee_dict.items() :
@@ -159,7 +160,7 @@ class Tracker :
 
             # Draw ball
             for _, ball in ball_dict.items() :
-                frame = self.draw_triangle(frame, ball["bbox"], (255,0,0))
+                frame = self.draw_triangle(frame, ball["bbox"], (0,255,0))
 
             output_video_frames.append(frame)
             
