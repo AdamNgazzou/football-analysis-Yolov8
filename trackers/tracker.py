@@ -5,7 +5,7 @@ import os
 import cv2
 import sys 
 sys.path.append("../")
-from utils import get_bbox_width, get_center_of_bbox
+from utils import get_bbox_width, get_center_of_bbox, get_foot_position
 import numpy as np
 import pandas as pd
 class Tracker : 
@@ -14,6 +14,18 @@ class Tracker :
         #self.tracker = sv.MultiObjectTracker(distance_function=sv.iou_2d, distance_threshold=0.5)
         self.tracker = sv.ByteTrack()
 
+
+    def add_position_to_tracks(sekf,tracks):
+        for object, object_tracks in tracks.items():
+            for frame_num, track in enumerate(object_tracks):
+                for track_id, track_info in track.items():
+                    bbox = track_info['bbox']
+                    if object == 'ball':
+                        position= get_center_of_bbox(bbox)
+                    else:
+                        position = get_foot_position(bbox)
+                    tracks[object][frame_num][track_id]['position'] = position
+        
 
     def interpolate_ball_positions(self,ball_positions):
         ball_positions = [x.get(1,{}).get('bbox',[]) for x in ball_positions]
