@@ -4,10 +4,11 @@ from team_assigner import TeamAssigner
 from player_ball_assigner import PlayerBallAssigner
 import numpy as np
 from camera_movement_estimator import CameraMovementEstimator
-
+from view_transformer import view_transformer
+from speed_and_distance_estimator import SpeedAndDistanceEstimator
 def main():
     # Read Video
-    video_frames = read_video("input_videos/08fd33_4.mp4")
+    video_frames = read_video("input_videos/test.mp4")#08fd33_4
     
     # Initialize Tracker and get object tracks
     tracker = Tracker("models/best.pt")
@@ -15,15 +16,22 @@ def main():
 
     # Get Object Positions
     tracker.add_position_to_tracks(tracks)
-
-
     # Estimate Camera Movement
     camera_movement_estimator = CameraMovementEstimator(video_frames[0])
     camera_movement_per_frame = camera_movement_estimator.get_camera_movement(video_frames, read_from_stub=True, stub_path="stubs/camera_movement_stubs.pkl")
     camera_movement_estimator.add_adjust_positions_to_tracks(tracks, camera_movement_per_frame)
 
+
+    # View Transformer 
+    view_transformer_instance = view_transformer()  
+    view_transformer_instance.add_transformed_position_to_tracks(tracks)
+
     # Interpolate Ball Positions
     tracks['ball'] = tracker.interpolate_ball_positions(tracks['ball'])
+
+    # Estimate Speed and Distance
+    speed_and_distance_estimator = SpeedAndDistanceEstimator()
+    speed_and_distance_estimator.add_speed_and_distance_to_tracks(tracks)
 
     # Initialize Team Assigner
     team_assigner = TeamAssigner()
@@ -61,8 +69,12 @@ def main():
     # Draw the camera mouvement
     output_video_frames = camera_movement_estimator.draw_camera_movement(output_video_frames, camera_movement_per_frame)
 
+    # Draw Speed and Distance
+    speed_and_distance_estimator.draw_speed_and_distance(output_video_frames, tracks)
+
+
     # Save Video
-    save_video(output_video_frames, "output_videos/output.avi", fps=24)
+    save_video(output_video_frames, "output_videos/output2test.avi", fps=24)
 
 
 if __name__ == "__main__" :

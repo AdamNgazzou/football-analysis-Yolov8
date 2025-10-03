@@ -8,12 +8,13 @@ sys.path.append("../")
 from utils import get_bbox_width, get_center_of_bbox, get_foot_position
 import numpy as np
 import pandas as pd
+from sort.sort import Sort 
+
 class Tracker : 
     def __init__(self,model_path) :
         self.model = YOLO(model_path)  
-        #self.tracker = sv.MultiObjectTracker(distance_function=sv.iou_2d, distance_threshold=0.5)
-        self.tracker = sv.ByteTrack()
-
+        #TODO: Make distance function and threshold configurable
+        self.tracker = Sort()
 
     def add_position_to_tracks(sekf,tracks):
         for object, object_tracks in tracks.items():
@@ -25,7 +26,7 @@ class Tracker :
                     else:
                         position = get_foot_position(bbox)
                     tracks[object][frame_num][track_id]['position'] = position
-        
+
 
     def interpolate_ball_positions(self,ball_positions):
         ball_positions = [x.get(1,{}).get('bbox',[]) for x in ball_positions]
@@ -78,7 +79,7 @@ class Tracker :
                     detection_supervision.class_id[object_ind] = cls_name_inv["player"]
 
             # Track objects 
-            detections_with_tracks = self.tracker.update_with_detections(detection_supervision)
+            detections_with_tracks = self.tracker.update(detection_supervision)
             
             tracks["players"].append({})
             tracks["referees"].append({})

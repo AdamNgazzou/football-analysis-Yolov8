@@ -1,6 +1,6 @@
 
 from sklearn.cluster import KMeans
-
+import numpy as np
 class TeamAssigner:
     def __init__(self):
         self.team_colors = {}
@@ -41,7 +41,7 @@ class TeamAssigner:
         player_color = kmeans.cluster_centers_[player_cluster]
 
         return player_color
-    
+        
     def assign_team_color(self, frame, player_detections):
 
         player_colors = []
@@ -57,6 +57,7 @@ class TeamAssigner:
 
         self.team_colors[1] = kmeans.cluster_centers_[0]
         self.team_colors[2] = kmeans.cluster_centers_[1]
+
 
     def get_player_team(self, frame, player_bbox,player_id) : 
         if player_id in self.player_team_dict:
