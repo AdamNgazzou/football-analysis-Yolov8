@@ -7,7 +7,7 @@ A modular Computer Vision pipeline that extracts high-level tactical metrics (pl
 [![YOLOv8](https://img.shields.io/badge/YOLOv8-Ultralytics-18b68f)](https://ultralytics.com/)
 [![OpenCV](https://img.shields.io/badge/OpenCV-4.x-5C3EE8)](https://opencv.org/)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![GitHub last commit](https://img.shields.io/github/last-commit/YourUsername/YourRepoName)](https://github.com/YourUsername/YourRepoName)
+[![GitHub last commit](https://img.shields.io/github/last-commit/YourUsername/YourRepoName)](https://github.com/AdamNgazzou/football-analysis-Yolov8)
 
 ## Visuals
 
