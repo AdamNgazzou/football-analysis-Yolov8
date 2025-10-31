@@ -1,8 +1,13 @@
 # Football Match Spatial Analysis ⚽🚀
 
-## Description
-
 A modular Computer Vision pipeline that extracts high-level tactical metrics (player/ball trajectories, team possession, speeds and distances) from raw broadcast-style video. The system uses a fine-tuned YOLOv8 detector combined with tracking, camera-motion compensation and a view transformer to produce real-world spatial data (meters, m/s) suitable for tactical analysis and visualization.
+
+[![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
+![PyTorch](https://img.shields.io/badge/PyTorch-1.10%2B-red.svg)
+[![YOLOv8](https://img.shields.io/badge/YOLOv8-Ultralytics-18b68f)](https://ultralytics.com/)
+[![OpenCV](https://img.shields.io/badge/OpenCV-4.x-5C3EE8)](https://opencv.org/)
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![GitHub last commit](https://img.shields.io/github/last-commit/YourUsername/YourRepoName)](https://github.com/YourUsername/YourRepoName)
 
 ## Visuals
 
